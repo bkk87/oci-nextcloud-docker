@@ -1,0 +1,9 @@
+variable "compartment_id" {}
+variable "project_name" {}
+variable "region" {}
+variable "ssh_public_key" {}
+variable "vcn_subnet" {}
+variable "private_subnet" {}
+variable "public_subnet" {}
+variable "ad_number" {}
+variable "bucket_name" {}

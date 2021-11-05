@@ -1,0 +1,27 @@
+#cloud-config
+timezone: Europe/Berlin
+
+package_update: true
+package_upgrade: true
+packages:
+  - unattended-upgrades
+  - apt-listchanges
+  - docker.io
+
+# create the docker group
+groups:
+  - docker
+
+# Add default auto created user to docker group
+system_info:
+  default_user:
+    groups: [ docker ]
+
+write_files:
+  - content: |
+      */30 07-23 * * * docker exec --user www-data nextcloud php occ preview:pre-generate
+      */5 07-23 * * * docker exec --user www-data nextcloud php -f /var/www/html/cron.php
+      0 5 1 * * docker exec --user www-data nextcloud php occ files:scan --all
+      
+    path: /etc/crontab
+    append: true
