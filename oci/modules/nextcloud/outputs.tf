@@ -25,3 +25,7 @@ output "bastion_session_id" {
 output "instance_private_ip" {
   value =  oci_core_instance.nextcloud.private_ip
 }
+
+output "bucket_hostname" {
+  value =  "${data.oci_objectstorage_namespace.this.namespace}.compat.objectstorage.${var.region}.oraclecloud.com"
+}

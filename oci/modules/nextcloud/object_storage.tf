@@ -28,6 +28,11 @@ resource "oci_identity_group" "nextcloud" {
     name = "nextcloud"
 }
 
+resource "oci_identity_user_group_membership" "group_membership" {
+    group_id = oci_identity_group.nextcloud.id
+    user_id = oci_identity_user.nextcloud.id
+}
+
 resource "oci_identity_customer_secret_key" "this" {
     display_name = "nextcloud user secret key"
     user_id = oci_identity_user.nextcloud.id
@@ -46,8 +51,8 @@ resource "oci_identity_policy" "access_object_store_policy" {
 resource "oci_identity_user_capabilities_management" "nextcloud" {
     user_id = oci_identity_user.nextcloud.id
 
-    can_use_api_keys             = "true"
-    can_use_auth_tokens          = "false"
+    can_use_api_keys             = "false"
+    can_use_auth_tokens          = "true"
     can_use_console_password     = "false"
     can_use_customer_secret_keys = "true"
     can_use_smtp_credentials     = "false"
