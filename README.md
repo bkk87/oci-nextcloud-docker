@@ -34,3 +34,8 @@ You need to restart Nextcloud such that it will be able to establish a connectio
 
 The Traefik container is listening on port `80` and `443`. Because the OCI load balancer needs some time to consider the ports as healthy, you also need to `docker restart traefik`. Only with a healthy status (on port `80` will Traefik be able to generate a letsencrypt certificate).  
 
+### Nextcloud config: External Storage plugin for OCI Object storage
+
+In the Nextcloud web interface, add two Apps from the standard catalog: "External storage support" and "S3 Versioning". 
+- In the Nextcloud settings, go to the general configuration of the "external storage" plugin.
+- Fill in the configuration for the object store/bucket by using the terraform output variables. See [this screenshot](/images/nextcloud_oci_object_storage.png) how the variables are mapped. 
