@@ -14,16 +14,16 @@ resource "oci_core_volume_backup_policy" "daily" {
 }
 
 
-# resource "oci_core_volume_group" "daily" {
-#     availability_domain = data.oci_identity_availability_domain.ad_domain.name
-#     compartment_id = var.compartment_id
-#     source_details {
-#         type = "volumeIds"
-#         volume_ids = [data.oci_core_boot_volumes.boot_volumes.boot_volumes[0].id]
-#     }
+resource "oci_core_volume_group" "daily" {
+    availability_domain = data.oci_identity_availability_domain.ad_domain.name
+    compartment_id = var.compartment_id
+    source_details {
+        type = "volumeIds"
+        volume_ids = [data.oci_core_boot_volumes.boot_volumes.boot_volumes[0].id]
+    }
 
-#     backup_policy_id = oci_core_volume_backup_policy.daily.id
+    backup_policy_id = oci_core_volume_backup_policy.daily.id
 
-#     display_name = "daily-backups"
-# }
+    display_name = "daily-backups"
+}
 
