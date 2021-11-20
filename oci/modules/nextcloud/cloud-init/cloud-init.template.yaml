@@ -19,9 +19,9 @@ system_info:
 
 write_files:
   - content: |
-      */30 07-23 * * * docker exec --user www-data nextcloud php occ preview:pre-generate
-      */5 07-23 * * * docker exec --user www-data nextcloud php -f /var/www/html/cron.php
-      0 5 1 * * docker exec --user www-data nextcloud php occ files:scan --all
+      */30 07-23 * * * root docker exec --user www-data nextcloud php occ preview:pre-generate
+      */5 07-23 * * * root docker exec --user www-data nextcloud php -f /var/www/html/cron.php
+      0 5 1 * * root docker exec --user www-data nextcloud php occ files:scan --all
       
     path: /etc/crontab
     append: true
