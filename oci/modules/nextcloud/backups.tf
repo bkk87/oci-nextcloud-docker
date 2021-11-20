@@ -1,20 +1,20 @@
 # backups: 5 are within the always free tier:
-# 4 daily and 
+# 4 weekly and 
 # 1 manual backup (not part of this terraform code)
 
-resource "oci_core_volume_backup_policy" "daily" {
+resource "oci_core_volume_backup_policy" "weekly" {
   compartment_id = var.compartment_id
 
-  display_name = "daily-retention-4-days"
+  display_name = "weekly-retention-4-weeks"
   schedules {
-    backup_type       = "INCREMENTAL"
-    period            = "ONE_DAY"
-    retention_seconds = 345600 # 4 days
+    backup_type       = "FULL"
+    period            = "ONE_WEEK"
+    retention_seconds = 2419200 # 4 weeks
   }
 }
 
 
-resource "oci_core_volume_group" "daily" {
+resource "oci_core_volume_group" "weekly" {
     availability_domain = data.oci_identity_availability_domain.ad_domain.name
     compartment_id = var.compartment_id
     source_details {
@@ -22,8 +22,8 @@ resource "oci_core_volume_group" "daily" {
         volume_ids = [data.oci_core_boot_volumes.boot_volumes.boot_volumes[0].id]
     }
 
-    backup_policy_id = oci_core_volume_backup_policy.daily.id
+    backup_policy_id = oci_core_volume_backup_policy.weekly.id
 
-    display_name = "daily-backups"
+    display_name = "weekly-backups"
 }
 
