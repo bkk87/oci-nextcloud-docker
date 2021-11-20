@@ -1,5 +1,5 @@
 data "docker_registry_image" "nextcloud" {
-  name = "nextcloud:stable"
+  name = "nextcloud:22"
 }
 
 resource "docker_image" "nextcloud" {
@@ -16,6 +16,15 @@ resource "random_password" "nextcloud_password" {
   length  = 20
   special = false
 }
+
+# optimized preview configuration: https://ownyourbits.com/2019/06/29/understanding-and-improving-nextcloud-previews/
+#docker exec --user www-data nextcloud php occ config:app:set previewgenerator squareSizes --value="32 256"
+#docker exec --user www-data nextcloud php occ config:app:set previewgenerator widthSizes  --value="256 384"
+#docker exec --user www-data nextcloud php occ config:app:set previewgenerator heightSizes --value="256"
+#docker exec --user www-data nextcloud php occ config:system:set preview_max_x --value 2048
+#docker exec --user www-data nextcloud php occ config:system:set preview_max_y --value 2048
+#docker exec --user www-data nextcloud php occ config:system:set jpeg_quality --value 60
+#docker exec --user www-data nextcloud php occ config:app:set preview jpeg_quality --value="60"
 
 resource "docker_container" "nextcloud" {
   depends_on = [docker_container.mariadb, docker_container.redis]
