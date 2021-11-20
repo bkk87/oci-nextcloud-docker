@@ -5,7 +5,7 @@ Oracle Cloud (OCI) is offering a generous "Always-free tier" including several C
 - I have decided on a single VM deployment with a docker daemon. My focus was on maximising performance and storage instead of high-availability. Each VM boot volume would consume at least 50GB. As we only get 200GB for free, I have chose a single instance compared to e.g. a multi-node k3s cluster.  
 - Terraform for both the cloud infrastructure and the deplyoment on the docker daemon.
 - Object Storage bucket included which can be integrated with Nextcloud's external storage plugin. We get 20GB for free.
-- Bastion host setup included to acess the VM over ssh in a private subnet.
+- Bastion host setup included to access the VM over ssh in a private subnet.
 
 ## Instructions
 
