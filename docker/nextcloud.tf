@@ -1,5 +1,5 @@
 data "docker_registry_image" "nextcloud" {
-  name = "nextcloud:22"
+  name = "nextcloud:stable"
 }
 
 resource "docker_image" "nextcloud" {
