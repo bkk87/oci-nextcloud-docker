@@ -43,6 +43,10 @@ resource "oci_core_instance" "nextcloud" {
         boot_volume_size_in_gbs = 150
     }
     preserve_boot_volume = false
+
+    lifecycle {
+      ignore_changes = [metadata, defined_tags, agent_config]
+    }
 }
 
 resource "oci_core_network_security_group" "public_ingress" {
