@@ -19,13 +19,14 @@ system_info:
 
 write_files:
   - content: |
-      */30 07-23 * * * root docker exec --user www-data nextcloud php occ preview:pre>
-      */5 07-23 * * * root docker exec --user www-data nextcloud php -f /var/www/html>
+      */30 07-23 * * * root docker exec --user www-data nextcloud php occ preview:pre-generate
+      */5 07-23 * * * root docker exec --user www-data nextcloud php -f /var/www/html/cron.php
       0 6 1 * * root docker exec --user www-data nextcloud php occ files:scan --all
       0 6 3 * * root docker exec --user www-data nextcloud php occ duplicates:find-all
-      0 10 * * * root docker exec --user www-data nextcloud php occ db:add-missing-co>
-      0 9 * * * root docker exec --user www-data nextcloud php occ db:add-missing-pri>
-      0 * * * * root docker exec --user www-data nextcloud php occ app:update --all ->
+      0 10 * * * root docker exec --user www-data nextcloud php occ db:add-missing-columns --no-interaction
+      0 9 * * * root docker exec --user www-data nextcloud php occ db:add-missing-primary-keys --no-interaction
+      0 8 * * * root docker exec --user www-data nextcloud php occ db:add-missing-indices
+      0 * * * * root docker exec --user www-data nextcloud php occ app:update --all --no-interaction
       0 5 * * * root reboot
     path: /etc/crontab
     append: true
