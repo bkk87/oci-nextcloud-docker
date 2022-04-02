@@ -28,6 +28,7 @@ resource "docker_container" "mariadb" {
   env = [
     "MARIADB_ROOT_PASSWORD=${random_password.mariadb_password.result}"
   ]
+  command = ["--transaction-isolation=READ-COMMITTED", "--binlog-format=ROW"]
   restart = "unless-stopped"
   start   = true
   mounts {
