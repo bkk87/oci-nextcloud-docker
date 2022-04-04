@@ -1,9 +1,8 @@
-# need a security list for bastion as it currently does not support NSGs
-resource "oci_core_default_security_list" "bastion" {
+# need a security list for the bastion to egress tcp/22 as it currently does not support NSGs
+resource "oci_core_default_security_list" "default" {
   manage_default_resource_id = oci_core_vcn.nextcloud.default_security_list_id
-
   egress_security_rules {
-    destination = "0.0.0.0/0"
+    destination = var.private_subnet
     protocol    = "6"
     description = "TCP"
   }
