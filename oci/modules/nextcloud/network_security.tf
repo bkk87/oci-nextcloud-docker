@@ -98,8 +98,4 @@ resource "oci_core_network_security_group_security_rule" "private_egress_tcp_udp
   description = "allow tcp egress"
   destination_type = "CIDR_BLOCK"
   destination      = "0.0.0.0/0"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 13eabc0 (migrate to oracle/oci provider)
